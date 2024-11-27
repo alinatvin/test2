@@ -2,11 +2,8 @@ let font;
 let tSize = 50; // size of the text
 let tposX1 = 50; // X position of the first text
 let tposY1 = 100; // Y position of the first text
-let tposX2 = 200; // X position of the duplicate text
 let tposY2 = 170; // Y position of the duplicate text
-let tposX3 = 200; // X position of the new duplicate text
 let tposY3 = 240; // Y position of the new duplicate text
-let tposX4 = 200; // X position of the third duplicate text
 let tposY4 = 310; // Y position of the third duplicate text
 let pointCount = 0.9; // between 0 - 1 particle count
 
@@ -19,6 +16,7 @@ let dia = 15; // diameter of interaction
 let randomPos = false; // starting positions - true or false
 let pointsDirection = "left"; // left right up down general
 let interactionDirection = -1; // between -1 and 1
+let soundEffect 
 
 let textPoints = [];
 let textPointsDuplicate = []; // Array for the duplicate particles
@@ -26,12 +24,12 @@ let textPointsDuplicate2 = []; // Array for the third duplicate particles
 let textPointsDuplicate3 = []; // Array for the fourth duplicate particles
 
 function preload() {
-  font = loadFont("AvenirNextLTPro-Demi.otf");
-  soundEffect = loadSound("click.mp3")
+    font = loadFont("AvenirNextLTPro-Demi.otf");
+  soundEffect = loadSound("click.mp3");
 }
 
 function setup() {
-  createCanvas(1920, 1080);
+  createCanvas(windowWidth, windowHeight);
   textFont(font);
 
   // Generate points for the first text "catalog"
@@ -241,14 +239,19 @@ Interact.prototype.show = function () {
     stroke(0, 255, 0); // Green color when the mouse is over the particle
   } else {
     stroke(262, 100, 40); // Default color
-
-function mouseDragged(){
-  if(mouseX > tposX1 && mouseX < tposX1 + tSize
-    && mouseY > tposY1 && mouseY < tposY4){
-    soundEffect.play()
-   } 
-  };
   }
   strokeWeight(2);
   point(this.pos.x, this.pos.y);
 };
+
+function windowResize(){
+  resizeCanvas(windowWidth, windowHeight)
+};
+
+function mouseDragged() {
+  // Check if the mouse is within the bounds of the text
+  if (mouseX > tposX1 && mouseX < tposX1 + tSize &&
+      mouseY > tposY1 && mouseY < tposY4) {
+    soundEffect.play(); // Play the sound when the mouse is dragged over the text
+  } 
+}
