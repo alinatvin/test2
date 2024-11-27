@@ -27,6 +27,7 @@ let textPointsDuplicate3 = []; // Array for the fourth duplicate particles
 
 function preload() {
   font = loadFont("AvenirNextLTPro-Demi.otf");
+  soundEffect = loadSound("click.mp3")
 }
 
 function setup() {
@@ -240,6 +241,13 @@ Interact.prototype.show = function () {
     stroke(0, 255, 0); // Green color when the mouse is over the particle
   } else {
     stroke(262, 100, 40); // Default color
+
+function mouseDragged(){
+  if(mouseX > tposX1 && mouseX < tposX1 + tSize
+    && mouseY > tposY1 && mouseY < tposY4){
+    soundEffect.play()
+   } 
+  };
   }
   strokeWeight(2);
   point(this.pos.x, this.pos.y);
